@@ -237,6 +237,29 @@ var WebSqlDB = function(successCallback, errorCallback) {
         );
     }
 
+
+this.insertGroceryListItem = function(json,callback){
+	
+        // Converts a JavaScript Object Notation (JSON) string into an object.
+        var parsedJson = JSON.parse(json),
+            status = 0;        
+        // Kept for for debuging
+        console.log("DEBUG - Inserting the following json store.insertGroceryListItem");
+        console.log(parsedJson);
+        this.db.transaction(
+           function (tx) {
+                var sql = "INSERT INTO grocerylists (ingredientId, title) VALUES (?,?)";
+
+                tx.executeSql(sql, [parsedJson.ingredientId,parsedJson.title ], function(tx, result) {
+
+                    // If results rows
+                    callback(result.rowsAffected === 1 ? true : false);
+                });
+            }
+        );	
+}
+
+
 this.insertRecipeIngredient = function(json, callback) {
 
         // Converts a JavaScript Object Notation (JSON) string into an object.

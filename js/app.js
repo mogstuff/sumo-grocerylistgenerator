@@ -198,6 +198,20 @@ findIngredientsByRecipeId: function(id) {
     addToGroceryList: function(id){
 		console.log('add the ingredients for this recipe to the shopping list');
 		console.log(id);
+			// get all the ingredients in this recipe
+		  this.store.findAllIngredientsByRecipeId(id,function(ingredients) {
+			  console.log('get the ingredients ready to add to grocery list');
+			  console.log(ingredients);
+			  
+			  for (i = 0; i < ingredients.length; i++) { 
+				  console.log(ingredients[i]['ingredientId']);
+					console.log(ingredients[i]['title']);
+				}
+
+			  
+			  });
+      	
+			// add the ingredients to the grocery list
 		},
     
     markCompleted: function(id) {
@@ -316,14 +330,7 @@ $.mobile.changePage("ingredients.html");
             // On successful db insert
             if(result) {
                 console.log("DEBUG - Success,  insertRecipeIngredient returned true");
-/*
-                // Redirect back to #home page, add a transition andchange the hash
-                $.mobile.changePage( $("#ingredientsPage"), {
-                    //transition: "slide",
-                    //reverse: false,
-                    //changeHash:false,
-                });*/
-$.mobile.changePage("index.html");
+				$.mobile.changePage("index.html");
             } else {
                 alert("Error on insert!");
             }
