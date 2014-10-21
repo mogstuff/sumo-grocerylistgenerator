@@ -159,13 +159,41 @@ findAllIngredients: function() {
             $('#title').attr('data-id', id);
             $('#description').val(result.description);
             $('#id').val(id);
-            
+            $('#recipe-id').val(id);
             // bind ingredients list here
             // ingredients-listview
-            
-          app.findAllIngredients();      
+            // bind to recipe-ingredients-listview
+            console.log('executed app.js findRecipeById')
+          //app.findAllIngredients();      
+           app.findIngredientsByRecipeId(id);
         });
     },
+    
+    
+// Grab all the ingredients for a recipe 
+// recipe-ingredients-listview
+findIngredientsByRecipeId: function(id) {
+        console.log('DEBUG - app.js - findIngredientsByRecipeId() triggered');
+        this.store.findAllIngredientsByRecipeId(id,function(ingredients) {
+            var l = ingredients.length;
+            var td;
+            // Loop through ingredients, build up lis and push to arrays
+            for (var i=0; i<l; i++) {
+                td = ingredients[i];
+               		ingredients.push('<li data-row-id="' + td.id + '" class=""><a href="view.html" data-transition="slide" class="view" data-view-id="' + td.id +'"><h2>' + td.title + '</h2></a><a href="#" data-icon="check" data-iconpos="notext" class="add-torecipe" data-mark-id="' + td.id +'">add to recipe</a></li>');                
+            }
+
+            // Remove any previously appended
+            $('.recipe-ingredients-listview li').remove();
+
+            // Append built up arrays to ULs here.
+            $('.recipe-ingredients-listview').append(ingredients);            
+
+            // Refresh JQM listview
+            $('.recipe-ingredients-listview').listview('refresh');
+        });
+    },
+
         
     addToGroceryList: function(id){
 		console.log('add the ingredients for this recipe to the shopping list');
@@ -270,17 +298,38 @@ findAllIngredients: function() {
 /*
                 // Redirect back to #home page, add a transition andchange the hash
                 $.mobile.changePage( $("#ingredientsPage"), {
-                    transition: "slide",
-                    reverse: true,
-                    changeHash: true,
-                });
-*/
+                    //transition: "slide",
+                    //reverse: false,
+                    //changeHash:false,
+                });*/
+$.mobile.changePage("ingredients.html");
             } else {
                 alert("Error on insert!");
             }
         });
     },
-      
+    
+    // insertIngredient
+     insertRecipeIngredient: function(json) {
+        // Passing json as any store will be able to handle it (even if we change to localStorage etc)
+        this.store.insertRecipeIngredient(json, function(result) {
+            // On successful db insert
+            if(result) {
+                console.log("DEBUG - Success,  insertRecipeIngredient returned true");
+/*
+                // Redirect back to #home page, add a transition andchange the hash
+                $.mobile.changePage( $("#ingredientsPage"), {
+                    //transition: "slide",
+                    //reverse: false,
+                    //changeHash:false,
+                });*/
+$.mobile.changePage("index.html");
+            } else {
+                alert("Error on insert!");
+            }
+        });
+    },
+        
     update: function(json) {
 
         // Passing json as any store will be able to handle it (even if we change to localStorage etc)
@@ -350,6 +399,8 @@ findAllIngredients: function() {
         $(document).on('click', '.view-recipe', function(event) {
             console.log("DEBUG - Trying to access view recipe");
             app.findRecipeById($(this).data('view-id'))
+            
+            
         });
         
 
@@ -359,11 +410,7 @@ findAllIngredients: function() {
             console.log(data);
             app.insert(data);
         });
-        
-        
-        // frmAddIngredient
-        // add-ingredient
-        
+         
          $(document).on('click', '.add-ingredient', function(event) {
             console.log("DEBUG - Trying to insert ingredient via the add-ingredient method");
             var data = JSON.stringify($('#frmAddIngredient').serializeObject());          
@@ -371,7 +418,6 @@ findAllIngredients: function() {
          app.insertIngredient(data);
         });
         
-
         $(document).on('change', '.target', function(event) {
             console.log("DEBUG - Trying to update on change");
             var data = JSON.stringify($('#edit').serializeObject()); 
@@ -393,8 +439,7 @@ findAllIngredients: function() {
             console.log("DEBUG - Mark outstanding pressed");
             app.markOutstanding($(this).data('mark-id'));
         });
-        
-          
+                 
         
         //  add the ingredients for this recipe to the grocery list
         $(document).on('click', '.add-togrocerylist', function(event) {
@@ -403,25 +448,20 @@ findAllIngredients: function() {
             app.addToGroceryList($(this).data('mark-id'));
         });
    
-   // add-torecipe
-   
-   
 		 //  add the ingredient to this recipe
         $(document).on('click', '.add-torecipe', function(event) {
-            console.log("DEBUG - add the ingredient to this recipe"); 
-           // console.log($(this).data('mark-id'));      
-          //  app.addToGroceryList($(this).data('mark-id'));
+          console.log("DEBUG - add the ingredient to this recipe"); 
+          console.log('Add this ingredient Id : ');          
+          console.log($(this).data('mark-id'));
+          var ingredientId = $(this).data('mark-id');  
+          console.log('to this recipe Id : ' );
+          console.log($('#recipe-id').val());
+          var recipeId = $('#recipe-id').val();              
+           app.insertRecipeIngredient(recipeId, ingredientId);
         });
 
-// frmAddIngredient
-    
-        
     }
 
 };
 
 app.initialize();
-
-
-
-

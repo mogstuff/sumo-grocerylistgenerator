@@ -15,7 +15,7 @@
 <body>
 
     <!-- View -->
-    <div data-role="page" id="view" data-add-back-btn="true">
+    <div data-role="page" id="view" data-add-back-btn="true" data-theme="b">
         <div data-role="header" data-position="fixed">
             <h1>Recipe</h1>
             <a href="add-recipe.html" data-icon="plus" data-iconpos="notext" class="ui-btn-right" data-transition="flow">New</a>
@@ -26,33 +26,26 @@
                 <input type="hidden" id="id" value="" name="id"/>
                 <input type="text" id="title" value="" data-id="" class="target" name="title"/>
                 <textarea id="description" data-id="" class="target" name="description"></textarea>
+                <input type="hidden" id="recipe-id" value="" data-id="" class="target" name="recipe-id"/>
             </form>
             <a href="" data-role="button" class="delete">Delete</a>
  
- 
-		<h2>Ingredients</h2>
-	
-		<ul  data-role="listview" class="todo-listview" data-filter="true" data-input="#myFilter" data-autodividers="true" data-inset="true"></ul>
-        
-        
-        
+		<h2>Ingredients</h2>	
+		<ul  data-role="listview" class="recipe-ingredients-listview" data-filter="false" data-input="#myFilter" data-autodividers="true" data-inset="true"></ul>                
         </div>
         
-       
     <div data-role="footer" data-id="foo1" data-position="fixed">
 	<div data-role="navbar">
 		 <ul>
-      <li><a href="index.html" data-icon="home" data-transition="flow">Home</a></li>
-      <li><a href="grocery-list.html" class="" data-icon="bars" data-transition="flow" >Grocery List</a></li>      
-      <li><a href="ingredients.html" class="" data-icon="bars" data-transition="flow" >Ingredients</a></li>
-       <li><a href="recipes.html" class="" data-icon="bars" data-transition="flow" >Recipes</a></li>
-       <li><a href="info.html" class="" data-icon="info" data-transition="flow" >Info</a></li>   
+      <li><a href="index.html" data-icon="home" data-transition="fade">Home</a></li>
+      <li><a href="ingredients.html" class="" data-icon="bars" data-transition="fade" >Ingredients</a></li>
+       <li><a href="recipes.html" class="" data-icon="bars" data-transition="fade" >Recipes</a></li>
+       <li><a href="info.html" class="" data-icon="info" data-transition="fade" >Info</a></li>   
     </ul>
 	</div><!-- /navbar -->
 </div><!-- /footer -->
         
     </div>
     <!-- /View -->
-
 </body>
 </html>
