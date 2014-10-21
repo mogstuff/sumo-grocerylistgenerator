@@ -246,6 +246,7 @@ this.insertGroceryListItem = function(json,callback){
         // Kept for for debuging
         console.log("DEBUG - Inserting the following json store.insertGroceryListItem");
         console.log(parsedJson);
+
         this.db.transaction(
            function (tx) {
                 var sql = "INSERT INTO grocerylists (ingredientId, title) VALUES (?,?)";
