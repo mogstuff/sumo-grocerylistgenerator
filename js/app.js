@@ -202,23 +202,18 @@ findIngredientsByRecipeId: function(id) {
 		  this.store.findAllIngredientsByRecipeId(id,function(ingredients) {
 			  console.log('get the ingredients ready to add to grocery list');
 			  console.log(ingredients);
-			  
+			  	var db = window.openDatabase("RecipeDB", "1.0", "Recipes DB", 200000); 
+			  	
+			  	
 			  for (i = 0; i < ingredients.length; i++) { 
-				  // add these to the grocery list
-				  console.log(ingredients[i]['ingredientId']);
-					console.log(ingredients[i]['title']);
-					
+				  // add these to the grocery list				
+				var ingredientId = ingredients[i]['ingredientId'];
+				var title = ingredients[i]['title'];	
+				console.log('ingredientId: ' + ingredientId + ' title: ' + title);			
 				
-					
-					  this.store.insertGroceryListItem(json, function(result) {
-						// On successful db insert
-						if(result) {
-							console.log("DEBUG - Success,  insertIngredient returned true");										
-						} else {
-							alert("Error on insert!");
-						}
-					});				
-					
+					db.transaction(function (tx) {					
+						tx.executeSql('INSERT INTO grocerylists (ingredientId,title) VALUES ('+ ingredientId +', ' + title + ')');
+					});
 					
 				}
 
@@ -227,6 +222,9 @@ findIngredientsByRecipeId: function(id) {
       	
 			// add the ingredients to the grocery list
 		},
+		
+		
+		
     
     markCompleted: function(id) {
 
