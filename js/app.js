@@ -204,8 +204,22 @@ findIngredientsByRecipeId: function(id) {
 			  console.log(ingredients);
 			  
 			  for (i = 0; i < ingredients.length; i++) { 
+				  // add these to the grocery list
 				  console.log(ingredients[i]['ingredientId']);
 					console.log(ingredients[i]['title']);
+					
+				
+					
+					  this.store.insertGroceryListItem(json, function(result) {
+						// On successful db insert
+						if(result) {
+							console.log("DEBUG - Success,  insertIngredient returned true");										
+						} else {
+							alert("Error on insert!");
+						}
+					});				
+					
+					
 				}
 
 			  
