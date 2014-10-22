@@ -83,28 +83,74 @@ sumoGroceryListManager.webdb.addSampleData = function() {
 				{"id": 3, "recipeId": 2, "ingredientId":7 }
 		];
 		
-		recipe_ingredients.forEach(function(ri){
+	// add sample data to recipe_ingredients table
+		recipe_ingredients.forEach(function(recipe_ingredient){
+			console.log(recipe_ingredient);
 			sqlSampleRecipeIngredients = "INSERT OR REPLACE INTO recipe_ingredients (id, recipeId, ingredientId) VALUES (?, ?, ?)";
-           tx.executeSql(sqlSampleIngredients, [ri.id,ri.recipeId,ri.ingredientId]);							
+           tx.executeSql(sqlSampleRecipeIngredients, [recipe_ingredient.id,recipe_ingredient.recipeId,recipe_ingredient.ingredientId]);							
 			});	
 			
 		 });
+     }
+
+sumoGroceryListManager.webdb.getGroceryLists = function(renderFunc) {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx) {
+			tx.executeSql("SELECT * FROM grocerylists", [], renderFunc, sumoGroceryListManager.webdb.onError);
+		});
+}
+
+
+// CRUD For recipes table
+
+  function loadRecipes(tx, rs) {
+        var rowOutput = "";
+        var todoItems = document.getElementById("recipesList");
+        for (var i=0; i < rs.rows.length; i++) {
+          rowOutput += renderRecipe(rs.rows.item(i));
+        }
+      
+        todoItems.innerHTML = rowOutput;
       }
+      
+      function renderRecipe(row) {
+        return "<li>" + row.title  + " [<a href='javascript:void(0);'  onclick='sumoGroceryListManager.webdb.deleteRecipe(" + row.id +");'>Delete</a>]</li>";
+      //        dinners.push('<li data-row-id="' + td.id + '" class=""><a href="view-recipe.html" data-transition="slide" class="view" data-view-id="' + td.id +'"><h2>' + td.title+ '</h2><p>' + td.description + '</p></a><a href="#" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + td.id +'">add to grocery list</a></li>');
+             
+      }
+
+
+sumoGroceryListManager.webdb.getRecipes = function(renderFunc) {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx) {
+			tx.executeSql("SELECT * FROM recipes", [], renderFunc, sumoGroceryListManager.webdb.onError);
+		});
+}
+
+
+sumoGroceryListManager.webdb.getIngredients = function(renderFunc) {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx) {
+			tx.executeSql("SELECT * FROM ingredients", [], renderFunc, sumoGroceryListManager.webdb.onError);
+		});
+}
 
 // initialise the app
   function init() {
 	sumoGroceryListManager.webdb.open();
 	sumoGroceryListManager.webdb.createTables();
 	sumoGroceryListManager.webdb.addSampleData();
+	sumoGroceryListManager.webdb.getRecipes(loadRecipes);
+//	html5rocks.webdb.getAllTodoItems(loadTodoItems);
   }
       
       
- $(document).on('pagebeforeshow', '#home', function(event) {
+ $(document).on('pagebeforeshow', '#home', function(event) {            
             console.log("DEBUG - 1. Home pageinit bind");
-            init();
-    });      
+            //init();
+ });      
       
-      
+ 
       
 /*
 Main App file 

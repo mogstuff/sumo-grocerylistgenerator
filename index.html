@@ -9,9 +9,13 @@
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/jquery.mobile-1.3.2.min.js"></script>   
  <!--   <script src="js/web-sql-storage.js"></script> -->
-    <script src="js/app.js"></script>    
+    <script src="js/app.js"></script>
+    <script>
+    init();
+    </script>    
 </head>
 <body>
+	
 <!-- Home -->
 <div data-role="page" id="home" data-theme="b">
 	
@@ -20,7 +24,7 @@
 </div>
        
     <div data-role="content">
-        <ul data-role="listview" class="todo-listview" data-theme="b"></ul>
+        <ul data-role="listview" id="recipesList" class="todo-listview" data-theme="b"></ul>         	
     </div>
         
     <div data-role="footer" data-id="foo1" data-position="fixed">
