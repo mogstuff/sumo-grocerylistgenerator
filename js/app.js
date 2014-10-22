@@ -1,6 +1,114 @@
 /*
+ * hoping for a simpler approach based on this http://www.html5rocks.com/en/tutorials/webdatabase/todo/
+ */ 
+ 
+var sumoGroceryListManager = {};
+sumoGroceryListManager.webdb = {};
+sumoGroceryListManager.webdb.db = null;
+// create and open the database
+sumoGroceryListManager.webdb.open = function() {
+  var dbSize = 5 * 1024 * 1024; // 5MB
+  sumoGroceryListManager.webdb.db = openDatabase("SumoGroceriesDB", "1.0", "Grocery List Manager DB", dbSize);
+}
+// create the tables
+sumoGroceryListManager.webdb.createTables = function() {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx) {
+         // tx.executeSql("CREATE TABLE IF NOT EXISTS todo(ID INTEGER PRIMARY KEY ASC, todo TEXT, added_on DATETIME)", []);
+            var sql = "CREATE TABLE IF NOT EXISTS recipes ( " +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "title, " +
+            "description, " +
+            "category)";
+            tx.executeSql(sql, []);
+            
+            sql2 = "CREATE TABLE IF NOT EXISTS ingredients ( " +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "title)";
+            tx.executeSql(sql2, []);
+            
+            sql3 = "CREATE TABLE IF NOT EXISTS grocerylists ( " +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "ingredientId, title)";
+			tx.executeSql(sql3, []);
+            
+    sql4 = "CREATE TABLE IF NOT EXISTS recipe_ingredients ( " +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "recipeId, ingredientId)";
+     tx.executeSql(sql4, []);
+            
+        });
+      }
+
+// add some sample data
+sumoGroceryListManager.webdb.addSampleData = function() {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx) {
+				console.log('DEBUG - Adding sample data');
+			    var recipes = [
+                {"id": 1, "title": "Lamb Curry", "description": "Lamb curry", "category": "Dinner"},
+                {"id": 2, "title": "Greek Yoghurt and Fruit", "description": "Greek Yoghurt and Fruit", "category": "Breakfast"},
+                {"id": 3, "title": "Poached Eggs and Bacon", "description": "Poached Eggs and Bacon", "category": "Breakfast"},
+                {"id": 4, "title": "Ceasar Salad", "description": "Chicken and bacon Ceasar Salad", "category": "Dinner"}
+            ];
+			
+			console.log(recipes);
+			
+			recipes.forEach( function (recipe)
+			{
+			sqlSampleRecipes = "INSERT OR REPLACE INTO recipes (id, title, description, category) VALUES (?, ?, ?, ?)";				
+            tx.executeSql(sqlSampleRecipes, [recipe.id,recipe.title,recipe.description,recipe.category]);
+			});
+			
+			// add sample data to ingredients			 
+			var ingredients = [
+                {"id": 1, "title": "Eggs"},
+                {"id": 2, "title": "Greek Yoghurt"},
+                {"id": 3, "title": "Bacon"},
+                {"id": 4, "title": "Crumpets"},
+                {"id": 5, "title": "Panchetta"},
+                {"id": 6, "title": "Honey"},
+                {"id": 7, "title": "Raspberries"}
+            ];
+
+			
+			ingredients.forEach(function(ingredient){
+				sqlSampleIngredients = "INSERT OR REPLACE INTO ingredients (id, title) VALUES (?, ?)";
+				   tx.executeSql(sqlSampleIngredients, [ingredient.id,ingredient.title]);			
+				});
+				
+			var recipe_ingredients = [
+				{"id": 1, "recipeId": 2, "ingredientId":2 },
+				{"id": 2, "recipeId": 2, "ingredientId":6 },
+				{"id": 3, "recipeId": 2, "ingredientId":7 }
+		];
+		
+		recipe_ingredients.forEach(function(ri){
+			sqlSampleRecipeIngredients = "INSERT OR REPLACE INTO recipe_ingredients (id, recipeId, ingredientId) VALUES (?, ?, ?)";
+           tx.executeSql(sqlSampleIngredients, [ri.id,ri.recipeId,ri.ingredientId]);							
+			});	
+			
+		 });
+      }
+
+// initialise the app
+  function init() {
+	sumoGroceryListManager.webdb.open();
+	sumoGroceryListManager.webdb.createTables();
+	sumoGroceryListManager.webdb.addSampleData();
+  }
+      
+      
+ $(document).on('pagebeforeshow', '#home', function(event) {
+            console.log("DEBUG - 1. Home pageinit bind");
+            init();
+    });      
+      
+      
+      
+/*
 Main App file 
-*/
+
 
 // jQuery plugin - Encode a set of form elements as a JSON object for manipulation/submission.
 $.fn.serializeObject = function()
@@ -321,13 +429,13 @@ findIngredientsByRecipeId: function(id) {
             // On successful db insert
             if(result) {
                 console.log("DEBUG - Success,  insertIngredient returned true");
-/*
+
                 // Redirect back to #home page, add a transition andchange the hash
                 $.mobile.changePage( $("#ingredientsPage"), {
                     //transition: "slide",
                     //reverse: false,
                     //changeHash:false,
-                });*/
+                });
 $.mobile.changePage("ingredients.html");
             } else {
                 alert("Error on insert!");
@@ -484,3 +592,4 @@ $.mobile.changePage("ingredients.html");
 };
 
 app.initialize();
+*/
