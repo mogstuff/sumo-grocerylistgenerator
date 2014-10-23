@@ -104,17 +104,27 @@ sumoGroceryListManager.webdb.getGroceryLists = function(renderFunc) {
 // CRUD For recipes table
 
   function loadRecipes(tx, rs) {
-        var rowOutput = "";
-        var todoItems = document.getElementById("recipesList");
-        for (var i=0; i < rs.rows.length; i++) {
+        var rowOutput = "";  
+        console.log(rs);  
+		$('.recipes-listview').append(rs);         
+	
+			for (var i=0; i < rs.rows.length; i++) {
+				//console.log(rs.rows.item(i));
+				var obj = rs.rows.item(i);
+				console.log(obj.title);
+				 $('.recipes-listview').append("<li>" + obj.title  + "</li>"); 	
+			}	           
+           
+            $('.recipes-listview').listview('refresh');
+     /*   for (var i=0; i < rs.rows.length; i++) {
           rowOutput += renderRecipe(rs.rows.item(i));
         }
       
-        todoItems.innerHTML = rowOutput;
+        todoItems.innerHTML = rowOutput;*/
       }
       
       function renderRecipe(row) {
-        return "<li>" + row.title  + " [<a href='javascript:void(0);'  onclick='sumoGroceryListManager.webdb.deleteRecipe(" + row.id +");'>Delete</a>]</li>";
+        return "<li>" + row.title  + "</li>";
       //        dinners.push('<li data-row-id="' + td.id + '" class=""><a href="view-recipe.html" data-transition="slide" class="view" data-view-id="' + td.id +'"><h2>' + td.title+ '</h2><p>' + td.description + '</p></a><a href="#" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + td.id +'">add to grocery list</a></li>');
              
       }
