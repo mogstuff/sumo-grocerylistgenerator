@@ -100,9 +100,7 @@ sumoGroceryListManager.webdb.getGroceryLists = function(renderFunc) {
 		});
 }
 
-
 // CRUD For recipes table
-
   function loadRecipes(tx, rs) {
         var rowOutput = "";  
         console.log(rs);  
@@ -115,18 +113,11 @@ sumoGroceryListManager.webdb.getGroceryLists = function(renderFunc) {
 				 $('.recipes-listview').append("<li>" + obj.title  + "</li>"); 	
 			}	           
            
-            $('.recipes-listview').listview('refresh');
-     /*   for (var i=0; i < rs.rows.length; i++) {
-          rowOutput += renderRecipe(rs.rows.item(i));
-        }
-      
-        todoItems.innerHTML = rowOutput;*/
+            $('.recipes-listview').listview('refresh');    
       }
       
       function renderRecipe(row) {
-        return "<li>" + row.title  + "</li>";
-      //        dinners.push('<li data-row-id="' + td.id + '" class=""><a href="view-recipe.html" data-transition="slide" class="view" data-view-id="' + td.id +'"><h2>' + td.title+ '</h2><p>' + td.description + '</p></a><a href="#" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + td.id +'">add to grocery list</a></li>');
-             
+        return "<li>" + row.title  + "</li>";            
       }
 
 
@@ -151,13 +142,11 @@ sumoGroceryListManager.webdb.getIngredients = function(renderFunc) {
 	sumoGroceryListManager.webdb.createTables();
 	sumoGroceryListManager.webdb.addSampleData();
 	sumoGroceryListManager.webdb.getRecipes(loadRecipes);
-//	html5rocks.webdb.getAllTodoItems(loadTodoItems);
   }
       
       
  $(document).on('pagebeforeshow', '#home', function(event) {            
             console.log("DEBUG - 1. Home pageinit bind");
-            //init();
  });      
       
  
