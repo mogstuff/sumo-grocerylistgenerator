@@ -93,7 +93,7 @@ sumoGroceryListManager.webdb.addSampleData = function() {
 		 });
      }
 
-sumoGroceryListManager.webdb.getGroceryLists = function(renderFunc) {
+sumoGroceryListManager.webdb.getGroceryList = function(renderFunc) {
         var db = sumoGroceryListManager.webdb.db;
         db.transaction(function(tx) {
 			tx.executeSql("SELECT * FROM grocerylists", [], renderFunc, sumoGroceryListManager.webdb.onError);
@@ -104,30 +104,46 @@ sumoGroceryListManager.webdb.getGroceryLists = function(renderFunc) {
   function loadRecipes(tx, rs) {
         var rowOutput = "";  
         console.log(rs);  
-		$('.recipes-listview').append(rs);         
-	
+		$('.recipes-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {
 				//console.log(rs.rows.item(i));
 				var obj = rs.rows.item(i);
 				console.log(obj.title);
 				 $('.recipes-listview').append("<li>" + obj.title  + "</li>"); 	
-			}	           
-           
+			}	                      
             $('.recipes-listview').listview('refresh');    
-      }
+   }
+   
+   function loadIngredients(tx, rs)
+   {
+	    console.log(rs);  
+		$('.ingredients-listview').append(rs);         	
+			for (var i=0; i < rs.rows.length; i++) {
+				var obj = rs.rows.item(i);
+				console.log(obj.title);
+				 $('.ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
+			}	                      
+            $('.ingredients-listview').listview('refresh');    
+	}
       
-      function renderRecipe(row) {
-        return "<li>" + row.title  + "</li>";            
-      }
-
-
+      
+     function loadGrocerylist(tx, rs){
+			console.log(rs);  
+		$('.grocerylist-listview').append(rs);         	
+			for (var i=0; i < rs.rows.length; i++) {
+				var obj = rs.rows.item(i);
+				console.log(obj.title);
+				 $('.grocerylist-listview').append("<li>" + obj.title  + "</li>"); 	
+			}	                      
+            $('.grocerylist-listview').listview('refresh'); 
+	}
+      
 sumoGroceryListManager.webdb.getRecipes = function(renderFunc) {
         var db = sumoGroceryListManager.webdb.db;
         db.transaction(function(tx) {
 			tx.executeSql("SELECT * FROM recipes", [], renderFunc, sumoGroceryListManager.webdb.onError);
 		});
 }
-
 
 sumoGroceryListManager.webdb.getIngredients = function(renderFunc) {
         var db = sumoGroceryListManager.webdb.db;
@@ -136,21 +152,71 @@ sumoGroceryListManager.webdb.getIngredients = function(renderFunc) {
 		});
 }
 
+  sumoGroceryListManager.webdb.addIngredient = function(title) {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx){
+          tx.executeSql("INSERT INTO ingredients(title) VALUES (?)",
+              [title],
+              sumoGroceryListManager.webdb.onSuccess,
+              sumoGroceryListManager.webdb.onError);
+         });
+      }
+    
+
+
+
+
 // initialise the app
   function init() {
 	sumoGroceryListManager.webdb.open();
 	sumoGroceryListManager.webdb.createTables();
 	sumoGroceryListManager.webdb.addSampleData();
-	sumoGroceryListManager.webdb.getRecipes(loadRecipes);
+	//sumoGroceryListManager.webdb.getRecipes(loadRecipes);
+//	sumoGroceryListManager.webdb.getGrocerylist(loadGrocerylist);
   }
-      
+    
+   function getAllRecipes()
+   {
+	console.log('firing getAllRecipes function');
+		sumoGroceryListManager.webdb.open();
+		sumoGroceryListManager.webdb.getRecipes(loadRecipes); 
+  } 
+  
+  function getAllIngredients(){
+		console.log('firing getAllIngredients function');
+				sumoGroceryListManager.webdb.open();
+		sumoGroceryListManager.webdb.getIngredients(loadIngredients);
+ }
+ 
+function addIngredient()
+{
+      var title = document.getElementById("ingredient");
+      console.log(title.value);
+    			sumoGroceryListManager.webdb.open();
+	
+     sumoGroceryListManager.webdb.addIngredient(title.value);
+  	
+} 
       
  $(document).on('pagebeforeshow', '#home', function(event) {            
             console.log("DEBUG - 1. Home pageinit bind");
+            init();
  });      
-      
+       
+
+ $(document).on('pagebeforeshow', '#ingredients', function(event) {            
+            console.log("DEBUG - 1. Ingredients pageinit bind");
+       getAllIngredients();
+ });  
  
-      
+ 
+ $(document).on('pagebeforeshow', '#recipes', function(event) {            
+            console.log("DEBUG - 1. recipes pageinit bind");
+       getAllRecipes();
+ });
+ 
+ 
+ 
 /*
 Main App file 
 
