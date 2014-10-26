@@ -179,6 +179,12 @@ sumoGroceryListManager.webdb.addRecipe = function(title,category,recipeDescripti
               sumoGroceryListManager.webdb.onError);
          });
 };   
+
+
+sumoGroceryListManager.webdb.getRecipeById = function(id){
+	
+}
+
 	 
 
 // initialise the app
@@ -196,6 +202,8 @@ sumoGroceryListManager.webdb.addRecipe = function(title,category,recipeDescripti
 		sumoGroceryListManager.webdb.open();
 		sumoGroceryListManager.webdb.getRecipes(loadRecipes); 
   } 
+  
+  
   
   function getAllIngredients(){
 		console.log('firing getAllIngredients function');
@@ -224,8 +232,9 @@ function addIngredient()
 	 
 	 }   
    
-   function getRecipeById(){
+   function getRecipeById(id){
 	  console.log('firing getRecipeById'); 
+	  
 	  }
       
  $(document).on('pagebeforeshow', '#home', function(event) {            
@@ -252,7 +261,8 @@ function addIngredient()
             console.log('the Id:');
             var id = getParameterByName("id");
           console.log(id);
-          getRecipeById();
+          getRecipeById(id);
+          // recipe-ingredients-listview
  });
  
  
@@ -264,6 +274,7 @@ function addIngredient()
  
 /*
 Main App file 
+
 
 
 // jQuery plugin - Encode a set of form elements as a JSON object for manipulation/submission.
