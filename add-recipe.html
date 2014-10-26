@@ -20,12 +20,11 @@
                    </div>
         <div data-role="content">
 			    <div data-role="content">
-        <form method="" action="" id="insert">
-            <label for="title">Title:</label>
-            <input type="text" name="title" id="text-basic" value="">
-
+   <form type="post" onsubmit="addRecipe(); return false;">
+             <label for="title">Title:</label>
+            <input type="text" name="recipeTitle" id="recipeTitle" value="">
             <label for="description">Description:</label>
-            <textarea cols="40" rows="8" name="description" id="text-basic"></textarea>
+            <textarea cols="40" rows="8" name="recipeDescription" id="recipeDescription"></textarea>
             
             <label for="category">Select Category</label>
     <select name="category" id="category">
@@ -34,8 +33,8 @@
       <option value="Dinner">Dinner</option>
     </select>
   </fieldset>
+      <input type="submit" value="Add Recipe"/>  
         </form>
-        <a href="" data-role="button" class="add">Add</a>
     </div>
 
         </div>
