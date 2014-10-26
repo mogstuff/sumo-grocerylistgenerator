@@ -111,7 +111,7 @@ sumoGroceryListManager.webdb.getGroceryList = function(renderFunc) {
 				console.log('recipe:');
 				console.log(obj.id);
 				console.log(obj.title);
-				$('.recipes-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="view-recipe.html" data-transition="flip" class="view" data-view-id="' + obj.id + '"><h2>' + obj.title + '</h2><p>' + obj.description + '</p></a><a href="#" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + obj.id +'">add to grocery list</a></li>');
+				$('.recipes-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="view-recipe.html?id='+ obj.id +'" data-transition="flip" class="view" data-view-id="' + obj.id + '"><h2>' + obj.title + '</h2><p>' + obj.description + '</p></a><a href="#" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + obj.id +'">add to grocery list</a></li>');
             
             }	
                                   	
@@ -250,12 +250,17 @@ function addIngredient()
  $(document).on('pagebeforeshow', '#viewrecipe', function(event) {            
             console.log("DEBUG - 1. recipe pageinit bind");
             console.log('the Id:');
-            console.log($(this).data('view-id'));
-       getRecipeById();
+            var id = getParameterByName("id");
+          console.log(id);
+          getRecipeById();
  });
  
  
- 
+ function getParameterByName(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
  
 /*
 Main App file 
