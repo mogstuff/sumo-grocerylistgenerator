@@ -111,7 +111,7 @@ sumoGroceryListManager.webdb.getGroceryList = function(renderFunc) {
 				console.log('recipe:');
 				console.log(obj.id);
 				console.log(obj.title);
-				$('.recipes-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="view-recipe.html?id='+ obj.id +'" data-transition="flip" class="view" data-view-id="' + obj.id + '"><h2>' + obj.title + '</h2><p>' + obj.description + '</p></a><a href="#" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + obj.id +'">add to grocery list</a></li>');
+				$('.recipes-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="view-recipe.html?id='+ obj.id +'" data-transition="flip" class="view" data-view-id="' + obj.id + '"><h2>' + obj.title + '</h2><p>' + obj.description + '</p></a><a href="#viewrecipe" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + obj.id +'">add to grocery list</a></li>');
             
             }	
                                   	
@@ -189,7 +189,7 @@ sumoGroceryListManager.webdb.getRecipeById = function(id){}
 	sumoGroceryListManager.webdb.createTables();
 	sumoGroceryListManager.webdb.addSampleData();
 	//sumoGroceryListManager.webdb.getRecipes(loadRecipes);
-	sumoGroceryListManager.webdb.getGrocerylist(loadGrocerylist);
+//	sumoGroceryListManager.webdb.getGrocerylist(loadGrocerylist);
   }
     
    function getAllRecipes()
@@ -236,7 +236,18 @@ function addIngredient()
             console.log("DEBUG - 1. Home pageinit bind");
             init();
  });      
-       
+     
+
+ $(document).on('click', '.add-togrocerylist', function(event) {
+            console.log("DEBUG - add the ingredients for this recipe to the grocery list"); 
+            console.log($(this).data('mark-id'));      
+     var recipeId = $(this).data('mark-id');     
+     // this doesn't work  
+     // $.mobile.changePage('#viewrecipe', { transition: "flip"} );
+     // this works in wireframe.html
+     $.mobile.changePage($("#recipe"));
+     $('#recipeDetails').append('<p>'+ recipeId +'</p>');
+        });
 
  $(document).on('pagebeforeshow', '#ingredients', function(event) {            
             console.log("DEBUG - 1. Ingredients pageinit bind");
