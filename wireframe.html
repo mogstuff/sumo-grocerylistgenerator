@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.min.css">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+</head>
+<body>
+
+    <!-- home page -->
+<div data-role="page" id="home">
+  <div data-role="header">
+    <h1>Homepage</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>Home page, contains grocery list.</p>
+       <ul data-role="listview">
+      <li><a href="#">Panchetta</a></li>
+      <li><a href="#">Cream</a></li>
+      <li><a href="#">Linguini</a></li>
+     <li><a href="#">Eggs</a></li>
+     <li><a href="#">Parsley</a></li>
+     <li><a href="#">Parmesan</a></li>
+    </ul>
+  </div>
+
+  <!-- footer -->
+  <div data-role="footer" data-id="foo1" data-position="fixed">
+	<!-- navbar -->
+      <div data-role="navbar">
+		 <ul>
+      <li><a href="#home" data-icon="home" data-transition="fade">Home</a></li>
+    <li><a href="#recipes" class="" data-icon="bars" data-transition="fade" >Recipes</a></li>
+      <li><a href="#ingredients" class="" data-icon="bars" data-transition="fade" >Ingredients</a></li>       
+       <li><a href="#info" class="" data-icon="info" data-transition="fade" >Info</a></li>   
+    </ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+</div>  <!-- // home page -->
+
+    
+     <!-- recipes page -->
+<div data-role="page" id="recipes">
+  <div data-role="header">
+    <h1>Recipes</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+   <h5>Add Recipe</h5>      
+       <div class="ui-content">
+        <form type="post" onsubmit="addRecipe(); return false;">
+             <label for="title">Title:</label>
+            <input type="text" name="recipeTitle" id="recipeTitle" value="">
+            <label for="description">Description:</label>
+            <textarea cols="40" rows="8" name="recipeDescription" id="recipeDescription"></textarea>
+            
+            <label for="category">Select Category</label>
+    <select name="category" id="category">
+      <option value="Breakfast">Breakfast</option>
+      <option value="Lunch">Lunch</option>
+      <option value="Dinner">Dinner</option>
+    </select>
+  </fieldset>
+      <input type="submit" value="Add Recipe"/>  
+        </form>
+      </div>
+    
+       <div class="ui-content">
+      <ul data-role="listview" data-inset="true">
+      <li><a href="#">Carbonara</a></li>
+      <li><a href="#">Chicken Balti</a></li>
+      <li><a href="#">Ceasar Salad</a></li>
+    </ul>
+      </div>
+      
+  </div>
+
+    <!-- footer -->
+  <div data-role="footer" data-id="foo1" data-position="fixed">
+	<!-- navbar -->
+      <div data-role="navbar">
+		 <ul>
+      <li><a href="#home" data-icon="home" data-transition="fade">Home</a></li>
+    <li><a href="#recipes" class="" data-icon="bars" data-transition="fade" >Recipes</a></li>
+      <li><a href="#ingredients" class="" data-icon="bars" data-transition="fade" >Ingredients</a></li>       
+       <li><a href="#info" class="" data-icon="info" data-transition="fade" >Info</a></li>   
+    </ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+</div> 
+     <!-- // recipes page -->
+    
+    
+    
+      <!-- ingredients page -->
+<div data-role="page" id="ingredients">
+  <div data-role="header">
+    <h1>ingredients</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>Lists ingredients.</p>   
+        
+       
+       <!-- add ingredient form -->
+      <div class="ui-content">
+           <h5>Add New Ingredient</h5>
+         <form type="post" onsubmit="addIngredient(); return false;">
+      <input type="text" id="ingredient" name="ingredient" placeholder="Add a new ingredient" />
+      <input type="submit" value="Add Ingredient"/>
+    </form>
+      </div>
+      
+         <!--// add ingredient form -->
+    
+      <!-- list ingredients -->
+      <div class="ui-content">
+    <ul data-role="listview">
+        <li><a href="#">Bacon</a></li>
+      <li><a href="#">Panchetta</a></li>
+      <li><a href="#">Cream</a></li>
+    </ul></div>
+       <!-- // list ingredients -->
+  </div>
+
+    <!-- footer -->
+  <div data-role="footer" data-id="foo1" data-position="fixed">
+	<!-- navbar -->
+      <div data-role="navbar">
+		 <ul>
+      <li><a href="#home" data-icon="home" data-transition="fade">Home</a></li>
+    <li><a href="#recipes" class="" data-icon="bars" data-transition="fade" >Recipes</a></li>
+      <li><a href="#ingredients" class="" data-icon="bars" data-transition="fade" >Ingredients</a></li>       
+       <li><a href="#info" class="" data-icon="info" data-transition="fade" >Info</a></li>   
+    </ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+</div> 
+     <!-- // ingredients page -->
+    
+    
+         <!-- info page -->
+<div data-role="page" id="info">
+  <div data-role="header">
+    <h1>info</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>info.</p>   
+  </div>
+
+    <!-- footer -->
+  <div data-role="footer" data-id="foo1" data-position="fixed">
+	<!-- navbar -->
+      <div data-role="navbar">
+		 <ul>
+      <li><a href="#home" data-icon="home" data-transition="fade">Home</a></li>
+    <li><a href="#recipes" class="" data-icon="bars" data-transition="fade" >Recipes</a></li>
+      <li><a href="#ingredients" class="" data-icon="bars" data-transition="fade" >Ingredients</a></li>       
+       <li><a href="#info" class="" data-icon="info" data-transition="fade" >Info</a></li>   
+    </ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+</div> 
+     <!-- // info page -->
+     
+    
+    
+    
+    
+    </body>
+</html>

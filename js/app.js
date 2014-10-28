@@ -1,15 +1,15 @@
 /*
  * hoping for a simpler approach based on this http://www.html5rocks.com/en/tutorials/webdatabase/todo/
- */ 
+*/
  
 var sumoGroceryListManager = {};
 sumoGroceryListManager.webdb = {};
 sumoGroceryListManager.webdb.db = null;
 // create and open the database
-sumoGroceryListManager.webdb.open = function() {
-  var dbSize = 5 * 1024 * 1024; // 5MB
-  sumoGroceryListManager.webdb.db = openDatabase("SumoGroceriesDB", "1.0", "Grocery List Manager DB", dbSize);
-}
+sumoGroceryListManager.webdb.open = function () {
+    var dbSize = 5 * 1024 * 1024; // 5MB
+    sumoGroceryListManager.webdb.db = openDatabase("SumoGroceriesDB", "1.0", "Grocery List Manager DB", dbSize);
+};
 // create the tables
 sumoGroceryListManager.webdb.createTables = function() {
         var db = sumoGroceryListManager.webdb.db;
@@ -181,11 +181,7 @@ sumoGroceryListManager.webdb.addRecipe = function(title,category,recipeDescripti
 };   
 
 
-sumoGroceryListManager.webdb.getRecipeById = function(id){
-	
-}
-
-	 
+sumoGroceryListManager.webdb.getRecipeById = function(id){}
 
 // initialise the app
   function init() {
@@ -193,7 +189,7 @@ sumoGroceryListManager.webdb.getRecipeById = function(id){
 	sumoGroceryListManager.webdb.createTables();
 	sumoGroceryListManager.webdb.addSampleData();
 	//sumoGroceryListManager.webdb.getRecipes(loadRecipes);
-//	sumoGroceryListManager.webdb.getGrocerylist(loadGrocerylist);
+	sumoGroceryListManager.webdb.getGrocerylist(loadGrocerylist);
   }
     
    function getAllRecipes()
@@ -202,8 +198,7 @@ sumoGroceryListManager.webdb.getRecipeById = function(id){
 		sumoGroceryListManager.webdb.open();
 		sumoGroceryListManager.webdb.getRecipes(loadRecipes); 
   } 
-  
-  
+    
   
   function getAllIngredients(){
 		console.log('firing getAllIngredients function');
