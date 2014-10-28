@@ -249,6 +249,15 @@ function addIngredient()
      $('#recipeDetails').append('<p>'+ recipeId +'</p>');
         });
 
+
+
+// add-torecipe
+ $(document).on('click', '.add-torecipe', function(event) {     
+     var ingredientId = $(this).data('mark-id');
+  console.log('DEBUG - add the ingredient ' + ingredientId + '  to recipe id' ); 
+             
+ });
+
  $(document).on('pagebeforeshow', '#ingredients', function(event) {            
             console.log("DEBUG - 1. Ingredients pageinit bind");
        getAllIngredients();
