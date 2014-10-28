@@ -247,6 +247,7 @@ function addIngredient()
      // this works in wireframe.html
      $.mobile.changePage($("#recipe"));
      $('#recipeDetails').append('<p>'+ recipeId +'</p>');
+     $('#recipeId').val(recipeId);
         });
 
 
@@ -254,7 +255,10 @@ function addIngredient()
 // add-torecipe
  $(document).on('click', '.add-torecipe', function(event) {     
      var ingredientId = $(this).data('mark-id');
-  console.log('DEBUG - add the ingredient ' + ingredientId + '  to recipe id' ); 
+   
+     console.log($('#recipeId').val());
+     var recipeId =  $('#recipeId').val();
+  console.log('DEBUG - add the ingredient ' + ingredientId + '  to recipe id ' + recipeId ); 
              
  });
 
