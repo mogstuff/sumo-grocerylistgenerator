@@ -82,10 +82,16 @@ sumoGroceryListManager.webdb.addSampleData = function() {
 
 			
 			ingredients.forEach(function(ingredient){
-				sqlSampleIngredients = "INSERT OR REPLACE INTO ingredients (id, title) VALUES (?, ?)";
+				sqlSampleIngredients = "INSERT OR REPLACE  INTO ingredients (id, title) VALUES (?, ?)";
 				   tx.executeSql(sqlSampleIngredients, [ingredient.id,ingredient.title]);			
+                sqlSampleGroceryItems = "INSERT OR REPLACE INTO grocerylist(ingredientId)VALUES(?)";
+                  tx.executeSql(sqlSampleGroceryItems, [ingredient.id]);			
 				});
 				
+            // sample data into grocery list
+           
+            
+            
 			var recipe_ingredients = [
 				{"id": 1, "recipeId": 2, "ingredientId":2 },
 				{"id": 2, "recipeId": 2, "ingredientId":6 },
