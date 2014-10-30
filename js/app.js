@@ -2,12 +2,9 @@
  * hoping for a simpler approach based on this http://www.html5rocks.com/en/tutorials/webdatabase/todo/
 */ 
 var sumoGroceryListManager = {};
-
-
 /**************************************************************************
 
 * DATABASE LAYER
-
 ***************************************************************************/
 
 sumoGroceryListManager.webdb = {};
@@ -79,7 +76,6 @@ sumoGroceryListManager.webdb.addSampleData = function() {
                 {"id": 6, "title": "Honey"},
                 {"id": 7, "title": "Raspberries"}
             ];
-
 			
 			ingredients.forEach(function(ingredient){
 				sqlSampleIngredients = "INSERT OR REPLACE  INTO ingredients (id, title) VALUES (?, ?)";
@@ -88,10 +84,7 @@ sumoGroceryListManager.webdb.addSampleData = function() {
                   tx.executeSql(sqlSampleGroceryItems, [ingredient.id]);			
 				});
 				
-            // sample data into grocery list
-           
-            
-            
+            // sample data into grocery list      
 			var recipe_ingredients = [
 				{"id": 1, "recipeId": 2, "ingredientId":2 },
 				{"id": 2, "recipeId": 2, "ingredientId":6 },
@@ -112,9 +105,13 @@ sumoGroceryListManager.webdb.addSampleData = function() {
 sumoGroceryListManager.webdb.getGroceryList = function(renderFunc) {
         var db = sumoGroceryListManager.webdb.db;
         db.transaction(function(tx) {
-			tx.executeSql("SELECT * FROM grocerylist", [], renderFunc, sumoGroceryListManager.webdb.onError);
+			tx.executeSql("SELECT grocerylist.id, grocerylist.ingredientId, ingredients.title FROM grocerylist INNER JOIN ingredients ON grocerylist.ingredientId  = ingredients.id", [], renderFunc, sumoGroceryListManager.webdb.onError);
 		});
 }
+
+/*
+SELECT recipe_ingredients.id,recipeId,ingredientId,ingredients.title FROM recipe_ingredients  INNER JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.id where recipeId = ?
+*/
 
 
 sumoGroceryListManager.webdb.getRecipes = function(renderFunc) {
@@ -155,7 +152,6 @@ sumoGroceryListManager.webdb.addRecipe = function(title,category,recipeDescripti
          });
 };   
 
-
 sumoGroceryListManager.webdb.getRecipeById = function(id){}
 
 // initialise the app
@@ -164,19 +160,12 @@ sumoGroceryListManager.webdb.getRecipeById = function(id){}
 	sumoGroceryListManager.webdb.createTables();
 	sumoGroceryListManager.webdb.addSampleData();
       sumoGroceryListManager.webdb.getGroceryList(loadGrocerylist);
-	//sumoGroceryListManager.webdb.getRecipes(loadRecipes);
-//	sumoGroceryListManager.webdb.getGrocerylist(loadGrocerylist);
-  }
-
-
+ }
 
 /********************************************************
-
 Presentation Layer
-
 ********************************************************/
 
-// CRUD For recipes table
   function loadRecipes(tx, rs) {
         var rowOutput = "";  
         console.log(rs);  
@@ -187,15 +176,11 @@ Presentation Layer
 				console.log('recipe:');
 				console.log(obj.id);
 				console.log(obj.title);
-				$('.recipes-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="view-recipe.html?id='+ obj.id +'" data-transition="flip" class="view" data-view-id="' + obj.id + '"><h2>' + obj.title + '</h2><p>' + obj.description + '</p></a><a href="#viewrecipe" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + obj.id +'">add to grocery list</a></li>');
-            
-            }	
-                                  	
+				$('.recipes-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="view-recipe.html?id='+ obj.id +'" data-transition="flip" class="view" data-view-id="' + obj.id + '"><h2>' + obj.title + '</h2><p>' + obj.description + '</p></a><a href="#viewrecipe" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + obj.id +'">add to grocery list</a></li>');            
+            }	                                  	
             $('.recipes-listview').listview('refresh');    
    }
    
-
-
 
    function loadIngredients(tx, rs)
    {
@@ -208,17 +193,18 @@ Presentation Layer
 			}	                      
             $('.ingredients-listview').listview('refresh');    
 	}
-    
-      
+          
      function loadGrocerylist(tx, rs){
-			console.log(rs);  
+		
+         console.log('executing loadGrocerylist function :');
+         console.log(rs);  
 		$('.grocerylist-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {
 				var obj = rs.rows.item(i);
-				console.log(obj.title);
+				console.log(obj);
 				 $('.grocerylist-listview').append("<li>" + obj.title  + "</li>"); 	
 			}	                      
-            $('.grocerylist-listview').listview('refresh'); 
+            $('.grocerylist-listview').listview('refresh');  
 	}
       
     
@@ -314,14 +300,13 @@ function addIngredient()
           // recipe-ingredients-listview
  });
  
- 
+ // this is redundant now as UI is now all in index.html
  function getParameterByName(name) {
     return decodeURI(
         (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
     );
 }
  
-
 
 
 /*
