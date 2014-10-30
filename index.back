@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grocery List Generator</title>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.4.min.css">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+    <!-- <script type="text/javascript" src="phonegap.js"></script>  -->   
+    <script src="js/app.js"></script>
+  </head>
+<body>
+	
+<!-- Home -->
+<div data-role="page" id="home" data-theme="b">
+	
+<div data-role="header" data-position="fixed">
+<h1>Grocery List Generator</h1>        
+</div>
+       
+    <div data-role="content">
+        <ul data-role="listview" id="grocerylist" class="grocerylist-listview" data-theme="b"></ul>         	
+    </div>
+        
+    <div data-role="footer" data-id="foo1" data-position="fixed">
+	<div data-role="navbar">
+		 <ul>
+      <li><a href="index.html" data-icon="home" data-transition="fade">Home</a></li>
+      <li><a href="ingredients.html" class="" data-icon="bars" data-transition="fade" >Ingredients</a></li>
+       <li><a href="recipes.html" class="" data-icon="bars" data-transition="fade" >Recipes</a></li>
+       <li><a href="info.html" class="" data-icon="info" data-transition="fade" >Info</a></li>   
+    </ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+    
+</div>
+<!-- /Home -->
+</body>
+</html>
