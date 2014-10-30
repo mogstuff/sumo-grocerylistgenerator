@@ -106,12 +106,6 @@ sumoGroceryListManager.webdb.addSampleData = function() {
 /************************
 * Grocery List
 *************************/
-sumoGroceryListManager.webdb.getGroceryList = function(renderFunc) {
-        var db = sumoGroceryListManager.webdb.db;
-        db.transaction(function(tx) {
-			tx.executeSql("SELECT grocerylist.id, grocerylist.ingredientId, ingredients.title FROM grocerylist INNER JOIN ingredients ON grocerylist.ingredientId  = ingredients.id", [], renderFunc, sumoGroceryListManager.webdb.onError);
-		});
-}
 
 sumoGroceryListManager.webdb.addGroceryListItem = function(ingredientId){
     	   var db = sumoGroceryListManager.webdb.db;
@@ -123,6 +117,12 @@ sumoGroceryListManager.webdb.addGroceryListItem = function(ingredientId){
          });
 };
 
+sumoGroceryListManager.webdb.getGroceryList = function(renderFunc) {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx) {
+			tx.executeSql("SELECT grocerylist.id, grocerylist.ingredientId, ingredients.title FROM grocerylist INNER JOIN ingredients ON grocerylist.ingredientId  = ingredients.id", [], renderFunc, sumoGroceryListManager.webdb.onError);
+		});
+}
 
 
 /************************
@@ -165,15 +165,6 @@ sumoGroceryListManager.webdb.getRecipeById = function(id, renderFunc)
 * Ingredients
 *************************/
 
-sumoGroceryListManager.webdb.getIngredients = function(renderFunc) {
-        var db = sumoGroceryListManager.webdb.db;
-        db.transaction(function(tx) {
-			tx.executeSql("SELECT * FROM ingredients", [], renderFunc, sumoGroceryListManager.webdb.onError);
-		});
-}
-
-
-
   sumoGroceryListManager.webdb.addIngredient = function(title) {
         var db = sumoGroceryListManager.webdb.db;
         db.transaction(function(tx){
@@ -184,7 +175,22 @@ sumoGroceryListManager.webdb.getIngredients = function(renderFunc) {
          });
  }
     
-  
+
+sumoGroceryListManager.webdb.getIngredients = function(renderFunc) {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx) {
+			tx.executeSql("SELECT * FROM ingredients", [], renderFunc, sumoGroceryListManager.webdb.onError);
+		});
+}
+
+sumoGroceryListManager.webdb.getRecipeIngredients = function(id, renderFunc) {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx) {
+			tx.executeSql("SELECT recipe_ingredients.id,recipeId,ingredientId,ingredients.title FROM recipe_ingredients  INNER JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.id where recipeId = ?", [id], renderFunc, sumoGroceryListManager.webdb.onError);
+		});
+}
+
+
 
 
 /************************
