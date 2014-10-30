@@ -109,11 +109,6 @@ sumoGroceryListManager.webdb.getGroceryList = function(renderFunc) {
 		});
 }
 
-/*
-SELECT recipe_ingredients.id,recipeId,ingredientId,ingredients.title FROM recipe_ingredients  INNER JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.id where recipeId = ?
-*/
-
-
 sumoGroceryListManager.webdb.getRecipes = function(renderFunc) {
         var db = sumoGroceryListManager.webdb.db;
         db.transaction(function(tx) {
@@ -138,6 +133,8 @@ sumoGroceryListManager.webdb.getIngredients = function(renderFunc) {
          });
       }
     
+  
+  
 sumoGroceryListManager.webdb.addRecipe = function(title,category,recipeDescription){
 	console.log('DB add recipe: ');
 	console.log(title);
@@ -152,14 +149,17 @@ sumoGroceryListManager.webdb.addRecipe = function(title,category,recipeDescripti
          });
 };   
 
-sumoGroceryListManager.webdb.getRecipeById = function(id){}
+sumoGroceryListManager.webdb.getRecipeById = function(id)
+{
+
+}
 
 // initialise the app
   function init() {
 	sumoGroceryListManager.webdb.open();
 	sumoGroceryListManager.webdb.createTables();
 	sumoGroceryListManager.webdb.addSampleData();
-      sumoGroceryListManager.webdb.getGroceryList(loadGrocerylist);
+ sumoGroceryListManager.webdb.getGroceryList(loadGrocerylist);
  }
 
 /********************************************************
