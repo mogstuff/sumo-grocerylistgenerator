@@ -65,16 +65,6 @@
     <div class="ui-content">
       <ul data-role="listview" id="recipesList" class="recipes-listview" data-theme="b"></ul>    
     </div>
-    
-    
-       <div class="ui-content">
-      <ul data-role="listview" data-inset="true">
-      <li><a href="#recipe" >Carbonara</a><a href="#" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="1">add to grocery list</a></li>
-      <li><a href="#">Chicken Balti</a></li>
-      <li><a href="#">Ceasar Salad</a></li>
-    </ul>
-      </div>
-      
   </div>
 
     <!-- footer -->
@@ -93,11 +83,15 @@
      <!-- // recipes page -->
     
         
+    
     <!-- view/edit recipe page -->
     <div data-role="page" id="recipe" data-theme="b">
   <div data-role="header">
     <h1>Edit Recipe</h1>
   </div>
+        
+        
+        
 
   <div data-role="main" class="ui-content">
     <p>Edit Recipe.</p>  
@@ -118,15 +112,9 @@
       </div>
       
        <div class="ui-content">
-		<h2>Ingredients</h2>	
-		<ul  data-role="listview" class="recipe-ingredients-listview" data-filter="false" data-input="#myFilter" data-autodividers="true" data-inset="true">       
-            <li><a href="#">Panchetta</a><a href="#" data-icon="check" data-iconpos="notext" class="add-torecipe" data-mark-id="1">add to  recipe</a></li>
-           </ul>      
+		<h2>Ingredients</h2>	    
+            <ul data-role="listview" id="recipesList" class="recipe-ingredients-listview" data-theme="b"></ul>   
       </div>
-      
-      
-     
-      
   </div>
 
     <!-- footer -->
@@ -151,8 +139,7 @@
   </div>
 
   <div data-role="main" class="ui-content">
-    <p>Lists ingredients.</p>   
-        
+    <p>Lists ingredients.</p>  
        
        <!-- add ingredient form -->
       <div class="ui-content">
@@ -166,15 +153,9 @@
          <!--// add ingredient form -->
     
       <!-- list ingredients -->
-        <ul data-role="listview" id="ingredientsList" class="ingredients-listview" data-theme="b"></ul>     
-      
-      
       <div class="ui-content">
-    <ul data-role="listview">
-        <li><a href="#">Bacon</a></li>
-      <li><a href="#">Panchetta</a></li>
-      <li><a href="#">Cream</a></li>
-    </ul></div>
+             <ul data-role="listview" id="ingredientsList" class="ingredients-listview" data-theme="b"></ul>     
+   </div>
        <!-- // list ingredients -->
   </div>
 
