@@ -235,13 +235,10 @@ function loadRecipe(tx,rs)
 {  
     var obj = rs.rows.item(0);
     console.log('loadRecipe : ');
-    console.log(obj);
-  var titleField = document.getElementById("recipeTitle");
-    // recipeTitle
-    titleField.value = 'hello world';
+    console.log(obj); 
     //console.log(obj.title);
-
-    
+$('input[id=recipeTitle]').val(obj.title);
+    $('input[id=recipeDescription]').val(obj.description); // ?
 }
     
 
