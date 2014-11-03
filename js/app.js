@@ -229,6 +229,7 @@ Presentation Layer
    function getRecipeById(id){ 	      
        	sumoGroceryListManager.webdb.open();
        sumoGroceryListManager.webdb.getRecipeById(id, loadRecipe);
+       sumoGroceryListManager.webdb.getRecipeIngredients(id, loadRecipeIngredients);
    }
 
 function loadRecipe(tx,rs)
@@ -236,9 +237,23 @@ function loadRecipe(tx,rs)
     var obj = rs.rows.item(0);
     console.log('loadRecipe : ');
     console.log(obj); 
-    //console.log(obj.title);
-$('input[id=recipeTitle]').val(obj.title);
-    $('input[id=recipeDescription]').val(obj.description); // ?
+    $('input[id=recipeTitle]').val(obj.title);
+    $('textarea[id=recipeDescription]').val(obj.description); 
+}
+
+function loadRecipeIngredients(tx, rs)
+{
+  // load ingredients for this recipe
+    console.log('loadRecipeIngredients');
+    // recipe-ingredients-listview
+    	$('.recipe-ingredients-listview').append(rs);         	
+			for (var i=0; i < rs.rows.length; i++) {
+				var obj = rs.rows.item(i);		
+                console.log(obj);
+				 $('.recipe-ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
+			}	                      
+            $('.recipe-ingredients-listview').listview('refresh');    
+    
 }
     
 
