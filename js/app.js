@@ -187,6 +187,9 @@ Presentation Layer
 *  Grocery List
 *************************/          
      function loadGrocerylist(tx, rs){		        
+         
+            $('.grocerylist-listview li').remove();
+         
 		$('.grocerylist-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {
 				var obj = rs.rows.item(i);			
@@ -210,6 +213,9 @@ Presentation Layer
    
 
   function loadRecipes(tx, rs) {
+      
+       $('.recipes-listview li').remove();
+      
         var rowOutput = "";          
 		$('.recipes-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {				
@@ -244,6 +250,7 @@ function loadRecipe(tx,rs)
 function loadRecipeIngredients(tx, rs)
 {
   // load ingredients for this recipe
+         $('.recipe-ingredients-listview li').remove();
     console.log('loadRecipeIngredients');
     // recipe-ingredients-listview
     	$('.recipe-ingredients-listview').append(rs);         	
@@ -271,7 +278,9 @@ function addIngredient()
 
 function loadIngredients(tx, rs)
    {	   
-		$('.ingredients-listview').append(rs);         	
+		      $('.ingredients-listview li').remove();
+       
+       $('.ingredients-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {
 				var obj = rs.rows.item(i);			
 				 $('.ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
