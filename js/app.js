@@ -46,8 +46,7 @@ sumoGroceryListManager.webdb.createTables = function() {
 // add some sample data
 sumoGroceryListManager.webdb.addSampleData = function() {
         var db = sumoGroceryListManager.webdb.db;
-        db.transaction(function(tx) {
-				console.log('DEBUG - Adding sample data');
+        db.transaction(function(tx) {			
 			    var recipes = [
                 {"id": 1, "title": "Lamb Curry", "description": "Lamb curry", "category": "Dinner"},
                 {"id": 2, "title": "Greek Yoghurt and Fruit", "description": "Greek Yoghurt and Fruit", "category": "Breakfast"},
@@ -136,25 +135,10 @@ sumoGroceryListManager.webdb.getRecipes = function(renderFunc) {
 }
 
 sumoGroceryListManager.webdb.getRecipeById = function(id, renderFunc){ 
-    
-    
-    console.log('Executing sumoGroceryListManager.webdb.getRecipeById function:');
-    console.log(id);
-    console.log(renderFunc);
     var db = sumoGroceryListManager.webdb.db;      
     db.transaction(function(tx) {
-			//tx.executeSql("SELECT * FROM recipes where id = ?", [id], renderFunc, sumoGroceryListManager.webdb.onError);
-        tx.executeSql("SELECT * FROM recipes", [], renderFunc, sumoGroceryListManager.webdb.onError);
+			tx.executeSql("SELECT * FROM recipes where id = ?", [id], renderFunc, sumoGroceryListManager.webdb.onError);
      });
-    
-      var db = sumoGroceryListManager.webdb.db;
-        db.transaction(function(tx) {
-			tx.executeSql("SELECT * FROM recipes", [], renderFunc, sumoGroceryListManager.webdb.onError);
-            //tx.executeSql("SELECT * FROM recipes where id = ?", [id], renderFunc, sumoGroceryListManager.webdb.onError);
-		});
-    
-    
-    
 }
 
 /************************
@@ -205,8 +189,7 @@ Presentation Layer
      function loadGrocerylist(tx, rs){		        
 		$('.grocerylist-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {
-				var obj = rs.rows.item(i);
-				console.log(obj);
+				var obj = rs.rows.item(i);			
 				 $('.grocerylist-listview').append("<li>" + obj.title  + "</li>"); 	
 			}	                      
             $('.grocerylist-listview').listview('refresh');  
@@ -227,12 +210,11 @@ Presentation Layer
    
 
   function loadRecipes(tx, rs) {
-        var rowOutput = "";  
-        console.log(rs);  
+        var rowOutput = "";          
 		$('.recipes-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {				
 				var obj = rs.rows.item(i);			
-				$('.recipes-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="#recipe" data-transition="flip" class="view" data-view-id="' + obj.id + '" class="view-recipe"><h2>' + obj.title + '</h2><p>' + obj.description + '</p></a><a href="#viewrecipe" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + obj.id +'">add to grocery list</a></li>');            
+				$('.recipes-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="#recipe" data-transition="flip" class="view-recipe" data-mark-id="' + obj.id + '" ><h2>' + obj.title + '</h2><p>' + obj.description + '</p></a><a href="#viewrecipe" data-icon="check" data-iconpos="notext" class="add-togrocerylist" data-mark-id="' + obj.id +'">add to grocery list</a></li>');            
             }	                                  	
             $('.recipes-listview').listview('refresh');    
    }
@@ -244,17 +226,22 @@ Presentation Layer
 		sumoGroceryListManager.webdb.getRecipes(loadRecipes); 
   } 
 
-   function getRecipeById(id){ 	 
-       console.log('Executing getRecipeById function:');
+   function getRecipeById(id){ 	      
        	sumoGroceryListManager.webdb.open();
        sumoGroceryListManager.webdb.getRecipeById(id, loadRecipe);
    }
 
 function loadRecipe(tx,rs)
-{
-    console.log('Executing loadRecipe function: ');
-    console.log(tx);
-    console.log(rs);
+{  
+    var obj = rs.rows.item(0);
+    console.log('loadRecipe : ');
+    console.log(obj);
+  var titleField = document.getElementById("recipeTitle");
+    // recipeTitle
+    titleField.value = 'hello world';
+    //console.log(obj.title);
+
+    
 }
     
 
@@ -317,14 +304,15 @@ Recipes Page Events
 // add-torecipe
  $(document).on('click', '.add-torecipe', function(event) {     
      var ingredientId = $(this).data('mark-id');   
-     var recipeId =  $('#recipeId').val();
-  console.log('DEBUG - add the ingredient ' + ingredientId + '  to recipe id ' + recipeId );              
+     var recipeId =  $('#recipeId').val();             
  });
 
 
 // view-recipe
  $(document).on('click', '.view-recipe', function(event) {     
-     var recipeId = $(this).data('mark-id');                  
+     var recipeId = $(this).data('mark-id');     
+    getRecipeById(recipeId);
+  
  });
 
 /********************************************************************
@@ -332,19 +320,14 @@ Recipe Page Events
 ********************************************************************/
 
 $(document).on('pagebeforeshow', '#recipe', function(event) {          
-  /*  var id =  1; 
-    console.log('Attempting to load recipe id ' + id);
-      getRecipeById(id);
-          // recipe-ingredients-listview*/
+ 
  });
 
 // add-torecipe
  $(document).on('click', '.add-torecipe', function(event) {     
      var ingredientId = $(this).data('mark-id');   
-     console.log($('#recipeId').val());
-     var recipeId =  $('#recipeId').val();
-  console.log('DEBUG - add the ingredient ' + ingredientId + '  to recipe id ' + recipeId ); 
-             
+     var recipeId =  $('#recipeId').val();    
+   
  });
 
 /************************
@@ -352,7 +335,6 @@ $(document).on('pagebeforeshow', '#recipe', function(event) {
 *************************/
 
  $(document).on('pagebeforeshow', '#ingredients', function(event) {            
-            console.log("DEBUG - 1. Ingredients pageinit bind");
        getAllIngredients();
  });  
  

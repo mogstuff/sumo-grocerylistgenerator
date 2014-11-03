@@ -90,22 +90,15 @@
     <h1>Edit Recipe</h1>
   </div>
         
-        
-        
-
   <div data-role="main" class="ui-content">
     <p>Edit Recipe.</p>  
       
       <div id="recipeDetails" class="ui-content"></div>
       
       <div class="ui-content">
-      <form id="edit">
-                <input type="hidden" id="id" value="" name="id"/>
-          
-            <input type="text" id="recipeId" value="" name="recipeId"/>
-          
-                <input type="text" id="title" value="" data-id="" class="target" name="title"/>
-                <textarea id="description" data-id="" class="target" name="description"></textarea>
+      <form id="edit-recipe">
+                <input type="text" id="recipeTitle" value="" data-id="" class="target" name="recipeTitle"/>
+                <textarea id="recipeDescription" data-id="" class="target" name="recipeDescription"></textarea>
                 <input type="hidden" id="recipe-id" value="" data-id="" class="target" name="recipe-id"/>
             </form>
             <a href="" data-role="button" class="save-upate-recipe">Save</a>
