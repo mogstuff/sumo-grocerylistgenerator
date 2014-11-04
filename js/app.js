@@ -298,8 +298,10 @@ function loadIngredients(tx, rs)
        $('.ingredients-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {
 				var obj = rs.rows.item(i);			
-				 $('.ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
-			}	                      
+				 //$('.ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
+                $('.ingredients-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="#" data-transition="slide" class="view" data-view-id="' + obj.id +'"><h2>' + obj.title + '</h2></a><a href="#" data-icon="check" data-iconpos="notext" class="add-torecipe" data-mark-id="' + obj.id +'">add to recipe</a></li>');
+                
+	}	                      
             $('.ingredients-listview').listview('refresh');    
 	}
 
