@@ -74,8 +74,8 @@ sumoGroceryListManager.webdb.addSampleData = function() {
 			ingredients.forEach(function(ingredient){
 				sqlSampleIngredients = "INSERT OR REPLACE  INTO ingredients (id, title) VALUES (?, ?)";
 				   tx.executeSql(sqlSampleIngredients, [ingredient.id,ingredient.title]);			
-                sqlSampleGroceryItems = "INSERT OR REPLACE INTO grocerylist(ingredientId)VALUES(?)";
-                  tx.executeSql(sqlSampleGroceryItems, [ingredient.id]);			
+            //    sqlSampleGroceryItems = "INSERT OR REPLACE INTO grocerylist(ingredientId)VALUES(?)";
+           //       tx.executeSql(sqlSampleGroceryItems, [ingredient.id]);			
 				});
 				
             // sample data into grocery list      
@@ -127,6 +127,7 @@ sumoGroceryListManager.webdb.addRecipe = function(title,category,recipeDescripti
          });
 };   
 
+
 sumoGroceryListManager.webdb.getRecipes = function(renderFunc) {
         var db = sumoGroceryListManager.webdb.db;
         db.transaction(function(tx) {
@@ -168,6 +169,20 @@ sumoGroceryListManager.webdb.getRecipeIngredients = function(id, renderFunc) {
 			tx.executeSql("SELECT recipe_ingredients.id,recipeId,ingredientId,ingredients.title FROM recipe_ingredients  INNER JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.id where recipeId = ?", [id], renderFunc, sumoGroceryListManager.webdb.onError);
 		});
 }
+
+
+// // recipe_ingredients
+  sumoGroceryListManager.webdb.addRecipeIngredient = function(recipeId, IngredientId) {
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx){
+          tx.executeSql("INSERT INTO recipe_ingredients(recipeId, IngredientId) VALUES (?,?)",
+              [recipeId, IngredientId],
+              sumoGroceryListManager.webdb.onSuccess,
+              sumoGroceryListManager.webdb.onError);
+         });
+ }
+    
+
 
 /************************
 *  initialise the app
