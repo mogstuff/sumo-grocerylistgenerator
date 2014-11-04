@@ -251,6 +251,8 @@ Presentation Layer
        	sumoGroceryListManager.webdb.open();
        sumoGroceryListManager.webdb.getRecipeById(id, loadRecipe);
        sumoGroceryListManager.webdb.getRecipeIngredients(id, loadRecipeIngredients);
+       // loadIngredientsToAdd
+       	sumoGroceryListManager.webdb.getIngredients(loadIngredientsToAdd);
    }
 
 function loadRecipe(tx,rs)
@@ -298,11 +300,26 @@ function loadIngredients(tx, rs)
        $('.ingredients-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {
 				var obj = rs.rows.item(i);			
-				 //$('.ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
-                $('.ingredients-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="#" data-transition="slide" class="view" data-view-id="' + obj.id +'"><h2>' + obj.title + '</h2></a><a href="#" data-icon="check" data-iconpos="notext" class="add-torecipe" data-mark-id="' + obj.id +'">add to recipe</a></li>');
+				 $('.ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
+             /*   $('.ingredients-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="#" data-transition="slide" class="view" data-view-id="' + obj.id +'"><h2>' + obj.title + '</h2></a><a href="#" data-icon="check" data-iconpos="notext" class="add-torecipe" data-mark-id="' + obj.id +'">add to recipe</a></li>');*/
                 
 	}	                      
             $('.ingredients-listview').listview('refresh');    
+	}
+
+// show available ingredients on edit and add recipe pages
+function loadIngredientsToAdd(tx, rs)
+   {	   
+		      $('.add-ingredients-listview li').remove();
+       
+       $('.add-ingredients-listview').append(rs);         	
+			for (var i=0; i < rs.rows.length; i++) {
+				var obj = rs.rows.item(i);			
+				 //$('.add-ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
+                $('.add-ingredients-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="#" data-transition="slide" class="view" data-view-id="' + obj.id +'"><h2>' + obj.title + '</h2></a><a href="#" data-icon="check" data-iconpos="notext" class="add-torecipe" data-mark-id="' + obj.id +'">add to recipe</a></li>');
+                
+	}	                      
+            $('.add-ingredients-listview').listview('refresh');    
 	}
 
       
