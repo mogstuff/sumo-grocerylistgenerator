@@ -260,6 +260,7 @@ function loadRecipe(tx,rs)
     var obj = rs.rows.item(0);
     console.log('loadRecipe : ');
     console.log(obj); 
+    $('input[id=recipe-id]').val(obj.id);
     $('input[id=recipeTitle]').val(obj.title);
     $('textarea[id=recipeDescription]').val(obj.description); 
 }
@@ -356,11 +357,6 @@ Recipes Page Events
  });
  
 
-// add-torecipe
- $(document).on('click', '.add-torecipe', function(event) {     
-     var ingredientId = $(this).data('mark-id');   
-     var recipeId =  $('#recipeId').val();             
- });
 
 
 // view-recipe
@@ -378,11 +374,16 @@ $(document).on('pagebeforeshow', '#recipe', function(event) {
  
  });
 
+
 // add-torecipe
  $(document).on('click', '.add-torecipe', function(event) {     
      var ingredientId = $(this).data('mark-id');   
-     var recipeId =  $('#recipeId').val();    
-   
+    // var recipeId =  $('#recipeId').val();      
+     var recipeId = $('input[id=recipe-id]').val();
+     console.log('Add ingredientId ' + ingredientId + ' to recipeId ' + recipeId );
+     sumoGroceryListManager.webdb.open();	  
+     sumoGroceryListManager.webdb.addRecipeIngredient(recipeId, ingredientId);      
+     getRecipeById(recipeId);
  });
 
 /************************
