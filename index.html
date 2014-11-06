@@ -36,16 +36,19 @@
 </div>  <!-- // home page -->
 
     
-     <!-- recipes page -->
-<div data-role="page" id="recipes" data-theme="b">
-  <div data-role="header">
-    <h1>Recipes</h1>
+    
+     <!-- new recipe page -->
+<div data-role="page" id="new-recipe" data-theme="b">
+    
+     <div data-role="header">
+         <a href="#" data-icon="back" data-rel="back" title="Go back">Back</a>
+    <h1>New Recipe</h1>
   </div>
-
-  <div data-role="main" class="ui-content">
-   <h5>Add Recipe</h5>      
-       <div class="ui-content">
-        <form type="post" onsubmit="addRecipe(); return false;">
+    
+    
+     <div class="ui-content">
+      
+           <form type="post" onsubmit="addRecipe(); return false;">
              <label for="title">Title:</label>
             <input type="text" name="recipeTitle" id="recipeTitle" value="">
             <label for="description">Description:</label>
@@ -60,12 +63,44 @@
   </fieldset>
       <input type="submit" value="Add Recipe"/>  
         </form>
-      </div>
+         
+         
+    </div>
+    
+    
+     <!-- footer -->
+  <div data-role="footer" data-id="foo1" data-position="fixed">
+	<!-- navbar -->
+      <div data-role="navbar">
+		 <ul>
+      <li><a href="#home" data-icon="home" data-transition="fade">Home</a></li>
+    <li><a href="#recipes" class="" data-icon="bars" data-transition="fade" >Recipes</a></li>
+      <li><a href="#ingredients" class="" data-icon="bars" data-transition="fade" >Ingredients</a></li>       
+       <li><a href="#info" class="" data-icon="info" data-transition="fade" >Info</a></li>   
+    </ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+    
+    
+    </div> 
+     <!-- // new recipe page -->
+    
+    
+    
+    
+     <!-- recipes page -->
+<div data-role="page" id="recipes" data-theme="b">
+  <div data-role="header">
+         <a href="#" data-icon="back" data-rel="back" title="Go back">Back</a>  
+      
+      <a href="#new-recipe" data-icon="plus">New Recipe</a>
+    <h1>Recipes</h1>
+  </div>
     
     <div class="ui-content">
       <ul data-role="listview" id="recipesList" class="recipes-listview" data-theme="b"></ul>    
     </div>
-  </div>
+ 
 
     <!-- footer -->
   <div data-role="footer" data-id="foo1" data-position="fixed">
@@ -82,11 +117,10 @@
 </div> 
      <!-- // recipes page -->
     
-        
-    
     <!-- view/edit recipe page -->
     <div data-role="page" id="recipe" data-theme="b">
   <div data-role="header">
+         <a href="#" data-icon="back" data-rel="back" title="Go back">Back</a>
     <h1>Edit Recipe</h1>
   </div>
         
@@ -131,25 +165,52 @@
 </div>     
      <!-- // view/edit recipe page -->
     
+    
+        <!-- new-ingredient page -->
+<div data-role="page" id="new-ingredient" data-theme="b">
+    
+     <div data-role="header">
+         <a href="#" data-icon="back" data-rel="back" title="Go back">Back</a>
+    <h1>New Ingredient</h1>
+  </div>
+    
+     <div class="ui-content">
+       <h5>Add New Ingredient</h5>
+         <form type="post" onsubmit="addIngredient(); return false;">
+      <input type="text" id="ingredient" name="ingredient" placeholder="Add a new ingredient" />
+      <input type="submit" value="Add Ingredient"/>
+    </form>
+    </div>
+    
+     <!-- footer -->
+  <div data-role="footer" data-id="foo1" data-position="fixed">
+	<!-- navbar -->
+      <div data-role="navbar">
+		 <ul>
+      <li><a href="#home" data-icon="home" data-transition="fade">Home</a></li>
+    <li><a href="#recipes" class="" data-icon="bars" data-transition="fade" >Recipes</a></li>
+      <li><a href="#ingredients" class="" data-icon="bars" data-transition="fade" >Ingredients</a></li>       
+       <li><a href="#info" class="" data-icon="info" data-transition="fade" >Info</a></li>   
+    </ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+    
+    </div> 
+     <!-- // new ingredient page -->
+    
+    
       <!-- ingredients page -->
 <div data-role="page" id="ingredients" data-theme="b">
   <div data-role="header">
+         <a href="#" data-icon="back" data-rel="back" title="Go back">Back</a>
+       <a href="#new-ingredient" data-icon="plus">New Ingredient</a>
     <h1>ingredients</h1>
   </div>
 
   <div data-role="main" class="ui-content">
     <p>Lists ingredients.</p>  
        
-       <!-- add ingredient form -->
-      <div class="ui-content">
-           <h5>Add New Ingredient</h5>
-         <form type="post" onsubmit="addIngredient(); return false;">
-      <input type="text" id="ingredient" name="ingredient" placeholder="Add a new ingredient" />
-      <input type="submit" value="Add Ingredient"/>
-    </form>
-      </div>
-      
-         <!--// add ingredient form -->
+     
     
       <!-- list ingredients -->
       <div class="ui-content">
@@ -177,6 +238,7 @@
          <!-- info page -->
 <div data-role="page" id="info" data-theme="b">
   <div data-role="header">
+         <a href="#" data-icon="back" data-rel="back" title="Go back">Back</a>
     <h1>info</h1>
   </div>
 
