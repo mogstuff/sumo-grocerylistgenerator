@@ -394,3 +394,8 @@ $(document).on('pagebeforeshow', '#recipe', function(event) {
        getAllIngredients();
  });  
  
+
+ $(document).on('click', '#exitButton', function(event) {     
+  console.log('quit this fucka');
+                navigator.app.exitApp(); 
+ });
