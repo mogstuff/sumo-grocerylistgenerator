@@ -14,6 +14,21 @@ sumoGroceryListManager.webdb.open = function () {
     sumoGroceryListManager.webdb.db = openDatabase("SumoGroceriesDB", "1.0", "Grocery List Manager DB", dbSize);
 };
 
+
+
+sumoGroceryListManager.webdb.onError = function(tx, e) {
+  alert("There has been an error: " + e.message);
+}
+
+/*
+sumoGroceryListManager.webdb.onSuccess = function(tx, r) {
+  // re-render the data.
+  // loadTodoItems is defined in Step 4a
+ // html5rocks.webdb.getAllTodoItems(loadTodoItems);
+}
+*/
+
+
 // create the tables
 sumoGroceryListManager.webdb.createTables = function() {
         var db = sumoGroceryListManager.webdb.db;
@@ -181,7 +196,19 @@ sumoGroceryListManager.webdb.getRecipeIngredients = function(id, renderFunc) {
               sumoGroceryListManager.webdb.onError);
          });
  }
-    
+  
+  
+  sumoGroceryListManager.webdb.deleteRecipeIngredient = function(id) {
+      console.log('removing item id ' + id + ' from recipe_ingredients');
+        var db = sumoGroceryListManager.webdb.db;
+        db.transaction(function(tx){
+          tx.executeSql("delete from recipe_ingredients where id = ?",
+              [id],
+              sumoGroceryListManager.webdb.onSuccess,
+              sumoGroceryListManager.webdb.onError);
+         });
+ }
+      
 
 
 /************************
@@ -275,7 +302,16 @@ function loadRecipeIngredients(tx, rs)
 			for (var i=0; i < rs.rows.length; i++) {
 				var obj = rs.rows.item(i);		
                 console.log(obj);
-				 $('.recipe-ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
+                
+                /*
+				 $('.recipe-ingredients-listview').append("<li>" + obj.title  + "<a href='#' data-icon='minus' data-iconpos='notext' class='delete-fromrecipe' data-mark-id='" + obj.id +"'>delete</a></li>"); 	
+                */
+                
+                
+                
+   $('.recipe-ingredients-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="#" data-transition="slide" class="view" data-view-id="' + obj.id +'"><h2>' + obj.title + '</h2></a><a href="#" data-icon="minus" data-iconpos="notext" class="delete-from-recipe" data-mark-id="' + obj.id +'">delete</a></li>');                
+                
+                
 			}	                      
             $('.recipe-ingredients-listview').listview('refresh');    
     
@@ -301,8 +337,7 @@ function loadIngredients(tx, rs)
        $('.ingredients-listview').append(rs);         	
 			for (var i=0; i < rs.rows.length; i++) {
 				var obj = rs.rows.item(i);			
-				 $('.ingredients-listview').append("<li>" + obj.title  + "</li>"); 	
-             /*   $('.ingredients-listview').append('<li data-row-id="' + obj.id + '" class=""><a href="#" data-transition="slide" class="view" data-view-id="' + obj.id +'"><h2>' + obj.title + '</h2></a><a href="#" data-icon="check" data-iconpos="notext" class="add-torecipe" data-mark-id="' + obj.id +'">add to recipe</a></li>');*/
+				 $('.ingredients-listview').append("<li>" + obj.title  + "</li>"); 	         
                 
 	}	                      
             $('.ingredients-listview').listview('refresh');    
@@ -387,6 +422,21 @@ $(document).on('pagebeforeshow', '#recipe', function(event) {
      sumoGroceryListManager.webdb.addRecipeIngredient(recipeId, ingredientId);      
      getRecipeById(recipeId);
  });
+
+// delete-from-recipe
+ $(document).on('click', '.delete-from-recipe', function(event) {     
+     var id = $(this).data('mark-id');   
+    // var recipeId =  $('#recipeId').val();      
+    // var recipeId = $('input[id=recipe-id]').val();
+     //console.log('Delete ingredientId ' + ingredientId + ' from recipeId ' + recipeId );
+      console.log('Delete item id ' + id + ' from recipe_ingredients' );
+     sumoGroceryListManager.webdb.open();	    
+     sumoGroceryListManager.webdb.deleteRecipeIngredient(id);
+        $('.recipe-ingredients-listview').listview('refresh')
+  //   getRecipeById(recipeId);
+ });
+
+
 
 /************************
 *  Ingredients
