@@ -338,15 +338,7 @@ Home Page Events
  });        
 
 
- $(document).on('click', '.add-togrocerylist', function(event) {        
-     var recipeId = $(this).data('mark-id');     
-     // this doesn't work  
-     // $.mobile.changePage('#viewrecipe', { transition: "flip"} );
-     // this works in wireframe.html
-     $.mobile.changePage($("#recipe"));
-     $('#recipeDetails').append('<p>'+ recipeId +'</p>');
-     $('#recipeId').val(recipeId);
-        });
+
 
 
 /********************************************************************
@@ -365,6 +357,16 @@ Recipes Page Events
     getRecipeById(recipeId);
   
  });
+
+
+// view-recipe, add-togrocerylist
+
+ $(document).on('click', '.add-togrocerylist', function(event) {        
+     var recipeId = $(this).data('mark-id');     
+   console.log('add the ingredients for this recipe to the grocery list');
+        });
+
+
 
 /********************************************************************
 Recipe Page Events
